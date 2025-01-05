@@ -22,11 +22,5 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-# 个人网页的资源不需要上传
-_blogs/*
-_pics/*
 
-/public/all.blog.json
-/public/_blogs/*
-/public/_pics/*
 
