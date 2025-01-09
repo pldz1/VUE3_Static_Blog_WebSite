@@ -67,7 +67,7 @@ async function extractFrontMatter(filePath, subDirPath, fileName) {
     const data = await fs.readFile(filePath, "utf8");
 
     // 使用正则表达式提取 front matter 部分（即 YAML 格式的元数据）
-    const frontMatterMatch = data.match(/^---\n([\s\S]*?)\n---/);
+    const frontMatterMatch = data.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (frontMatterMatch) {
       // 提取出 YAML 格式的内容
       const frontMatter = frontMatterMatch[1];

@@ -1,7 +1,7 @@
 const fs = require("fs").promises;
 const path = require("path");
 const { config } = require("dotenv");
-const { randomBytes, createCipheriv } = require("crypto");
+const { createDecipheriv, createCipheriv } = require("crypto");
 
 /** ========= STEP 1 ===========*/
 // 引入 dotenv 包 解析 .env 文件
@@ -45,8 +45,9 @@ function encryptJson(jsonObject) {
     // 将 JSON 对象转换为字符串
     const jsonString = JSON.stringify(jsonObject);
 
-    // 创建随机的初始化向量（IV）
-    const iv = randomBytes(16); // 16字节的IV（初始化向量）
+    // 创建固定的初始化向量（IV)
+    const ivStr = "abcdefghijklmnopqrstuvwxyz";
+    const iv = Buffer.from(ivStr.slice(0, 16), "utf-8");
 
     // 创建加密器
     const cipher = createCipheriv(
