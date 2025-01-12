@@ -12,8 +12,9 @@
 
 - **Node.js 版本支持**：
   - 推荐使用 **Node.js 16**。
-  - 本项目不支持 Node.js **17 及以上版本**, 因为高版本的 `crypto` 包支持不同, 可能导致无法运行。
-
+  - 本项目对 Node.js **17 及以上版本**, 需要额外设置环境变量:
+    - windows: `set NODE_OPTIONS=--openssl-legacy-provider` 
+    - linux: `export NODE_OPTIONS=--openssl-legacy-provider`
 ---
 
 ## 📂 项目结构
