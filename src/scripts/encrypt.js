@@ -1,7 +1,7 @@
 const fs = require("fs").promises;
 const path = require("path");
 const { config } = require("dotenv");
-const { createDecipheriv, createCipheriv } = require("crypto");
+const { createCipheriv } = require("crypto");
 
 /** ========= STEP 1 ===========*/
 // 引入 dotenv 包 解析 .env 文件
@@ -195,6 +195,46 @@ async function copyDirectory(sourceDir, targetDir) {
 }
 
 /** ========= STEP 8 ===========*/
+// 加密并保存 _data 文件夹下的所有 .json 文件
+async function copyAndEncryptDataFiles() {
+  try {
+    const dataDir = "_data";
+    const publicDataDir = "public/_data";
+
+    // 确保目标目录存在
+    await fs.mkdir(publicDataDir, { recursive: true });
+
+    // 读取 _data 文件夹下的所有文件
+    const files = await fs.readdir(dataDir);
+
+    for (const file of files) {
+      const filePath = path.join(dataDir, file);
+
+      // 只处理 .json 文件
+      if (file.endsWith(".json")) {
+        // 读取原始 JSON 文件内容
+        const content = await fs.readFile(filePath, "utf8");
+
+        // 加密文件内容
+        const encryptedContent = encryptJson(JSON.parse(content));
+
+        // 目标路径
+        const destFilePath = path.join(publicDataDir, file);
+
+        // 保存加密后的文件到 public/_data 文件夹
+        await fs.writeFile(destFilePath, encryptedContent);
+
+        console.log(`成功加密并保存文件: ${filePath} -> ${destFilePath}`);
+      }
+    }
+
+    console.log("所有 .json 文件加密并保存到 public/_data 文件夹完成.");
+  } catch (error) {
+    console.error("处理 .json 文件失败: ", error);
+  }
+}
+
+/** ========= STEP 9 ===========*/
 // 主函数
 async function main() {
   if (NEED_ENCRYPT === "false") {
@@ -238,7 +278,11 @@ async function main() {
     await copyAllBlogsJsonToCache();
   }
 
+  // 4. 复制图像资源到 public/_pics 下
   await copyAllPicsToCache();
+
+  // 5. 加密并保存 _data 文件夹中的所有 JSON 文件到 public/_data
+  await copyAndEncryptDataFiles();
 }
 
 // 启动程序

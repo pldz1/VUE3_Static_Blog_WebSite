@@ -6,8 +6,29 @@
         <span class="blog-run-time">网站已经运行了 {{ blogRunTime }} </span>
       </div>
 
-      <!-- 版权 -->
-      <div class="copyright-text">Copyright © 2025 {{}}</div>
+      <!-- 隐私数据 -->
+      <div class="privacy-text">
+        <div class="copyright-text" v-if="copyrightText">
+          {{ copyrightText }}
+        </div>
+        <div class="ps-text" v-if="psNum">
+          <img
+            style="height: 12px; width: 12px; margin-right: 8px"
+            src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png"
+          />
+          <a
+            href="https://beian.miit.gov.cn/?spm=5176.28426678.J_9220772140.59.30965181t5PJph#/Integrated/index"
+            rel="noreferrer"
+            target="_blank"
+            >{{ psNum }}</a
+          >
+        </div>
+        <div class="icp-text">
+          <a v-if="icpNum" href="https://beian.miit.gov.cn/" target="_blank">{{
+            icpNum
+          }}</a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -17,7 +38,14 @@ import { ref, computed, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 import { getRunTime } from "../utils/date";
 
-const year = ref(new Date().getFullYear());
+const store = useStore();
+
+const icpNum = computed(() => store.state.websiteAbout.privacyData.icp);
+const psNum = computed(() => store.state.websiteAbout.privacyData.ps);
+const copyrightText = computed(
+  () => store.state.websiteAbout.privacyData.copyright
+);
+
 const currentTime = ref(new Date().getTime());
 
 const timer = setInterval(() => {
@@ -25,7 +53,7 @@ const timer = setInterval(() => {
 }, 1000);
 
 const blogRunTime = computed(() => {
-  const startDate = useStore().state.websiteAbout.startDate;
+  const startDate = store.state.websiteAbout.startDate;
   const { day, hour, min, second } = getRunTime(startDate, currentTime.value);
   return `${day} 天 ${hour} 小时 ${min} 分 ${second} 秒`;
 });
@@ -39,7 +67,7 @@ onBeforeUnmount(() => {
 .footer {
   background: #232323;
   margin-top: 40px;
-  padding: 15px 0 45px 0;
+  padding: 15px 0 25px 0;
   width: 100%;
   color: rgb(133, 133, 133);
   text-align: center;
@@ -64,19 +92,35 @@ onBeforeUnmount(() => {
   animation: heartAni 1.4s infinite;
 }
 
+.privacy-text {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
 .copyright-text,
-.blog-run-time,
-.smile-face {
+.ps-text,
+.icp-text,
+.blog-run-time {
   font-size: 12px;
+  a {
+    text-decoration: none;
+    color: rgb(133, 133, 133);
+  }
+}
+
+.icp-text:link {
+  color: rgb(133, 133, 133);
+}
+
+.ps-text:link {
+  color: rgb(133, 133, 133);
 }
 
 .blog-run-time {
   margin-right: 5px;
-}
-
-.smile-face {
-  animation: faceAni 5s infinite ease-in-out;
-  display: inline-block;
 }
 
 @keyframes heartAni {

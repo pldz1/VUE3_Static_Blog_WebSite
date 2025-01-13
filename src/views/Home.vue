@@ -23,7 +23,7 @@
     </div>
 
     <!-- 页脚 -->
-    <FootBar :adminName="$store.state.adminAbout.adminInfo.nickName"></FootBar>
+    <FootBar></FootBar>
 
     <!-- 滚动到顶部按钮 -->
     <BackToTop :cls="'home'"></BackToTop>

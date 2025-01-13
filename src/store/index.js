@@ -1,24 +1,5 @@
 import { createStore } from "vuex";
 
-// 网站
-const websiteAbout = {
-  namespaced: true,
-  state: {
-    websiteName: process.env.VUE_APP_WEBSITE_NAME,
-    startDate: process.env.VUE_APP_WEB_START_TIME,
-    websiteAuthorInfo: {
-      name: process.env.VUE_APP_WEBSITE_NAME,
-      signature: "",
-      avatar: "./avatar.png",
-      githubUrl: process.env.VUE_APP_WEBSITE_AUTHOR_GITHUB,
-      csdnUrl: process.env.VUE_APP_WEBSITE_AUTHOR_CSDN,
-      juejinUrl: process.env.VUE_APP_WEBSITE_AUTHOR_JUEJIN,
-    },
-  },
-  actions: {},
-  mutations: {},
-};
-
 // 博客信息
 const blogsAbout = {
   namespaced: true,
@@ -45,55 +26,42 @@ const blogsAbout = {
   },
 };
 
-// 管理员
-let adminAbout = {
+// 网站
+const websiteAbout = {
   namespaced: true,
   state: {
-    adminInfo: {
-      nickName: "",
+    websiteName: process.env.VUE_APP_WEBSITE_NAME,
+    startDate: process.env.VUE_APP_WEB_START_TIME,
+    websiteAuthorInfo: {
+      name: process.env.VUE_APP_WEBSITE_NAME,
       signature: "",
-      avatar: "/avatar.png",
-      githubUrl: "",
+      avatar: "./avatar.png",
+      githubUrl: process.env.VUE_APP_WEBSITE_AUTHOR_GITHUB,
+      csdnUrl: process.env.VUE_APP_WEBSITE_AUTHOR_CSDN,
+      juejinUrl: process.env.VUE_APP_WEBSITE_AUTHOR_JUEJIN,
     },
-    articleCountInfo: {
-      article: 0,
-      category: 0,
-      tag: 0,
+    privacyData: {
+      icp: "",
+      copyright: "",
+      ps: "",
     },
-    isAdmin: false,
   },
-  actions: {},
-  mutations: {},
-};
-
-// 分类
-let categoryAbout = {
-  namespaced: true,
-  state: {
-    categoryCounts: [],
+  actions: {
+    setPrivacyData({ commit }, data) {
+      commit("setPrivacyData", data);
+    },
   },
-  actions: {},
   mutations: {
-    updateCategoryCounts(state, data) {
-      state.categoryCounts = data;
-    },
-  },
-};
-
-// 标签
-let tagAbout = {
-  namespaced: true,
-  state: {
-    tagCounts: [],
-  },
-  actions: {},
-  mutations: {
-    updateTagCounts(state, data) {
-      state.tagCounts = data;
+    setPrivacyData(state, data) {
+      if (data) {
+        state.privacyData.icp = data?.icp || "";
+        state.privacyData.copyright = data?.copyright || "";
+        state.privacyData.ps = data?.ps || "";
+      }
     },
   },
 };
 
 export default createStore({
-  modules: { adminAbout, websiteAbout, blogsAbout, categoryAbout, tagAbout },
+  modules: { websiteAbout, blogsAbout },
 });

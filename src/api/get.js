@@ -5,6 +5,8 @@ const staticAllBlogsDataFile = "./all.blog.json";
 
 const blogFilePath = "./_blogs";
 
+const apiFileData = "./_data";
+
 // 获取并解密 all.blog.json 文件
 async function getAllBlogsData() {
   try {
@@ -51,4 +53,27 @@ async function getBlogMdData(id) {
   }
 }
 
-export { getAllBlogsData, getBlogMdData };
+// 获取并解密 _data/privacy.json 文件
+async function getPrivacyData() {
+  try {
+    // 1. 使用 axios 发起 GET 请求获取文件
+    const response = await axios.get(`${apiFileData}/privacy.json`);
+    const encryptedData = response.data;
+
+    // 2. 使用 decryptJson 解密得到 全部的 privacy.json 变量
+    const allData = decryptJson(encryptedData);
+
+    if (!allData) {
+      console.error("解密失败，无法获取 privacy 数据");
+      return;
+    }
+
+    // 3. 返回解密后的 allBlogs 数据
+    return allData;
+  } catch (error) {
+    console.error("获取或解密 privacy 文件失败:", error);
+    return null;
+  }
+}
+
+export { getAllBlogsData, getBlogMdData, getPrivacyData };
