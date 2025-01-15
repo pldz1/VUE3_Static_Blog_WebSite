@@ -1,7 +1,7 @@
 {
   "demo1": {
-    "url": "./_codespace/demo1/index.html",
-    "thumbnail": "./_codespace/demo1/thumbnail.png",
+    "url": "/_codespace/demo1/index.html",
+    "thumbnail": "/_codespace/demo1/thumbnail.png",
     "date":"2025/01/15",
     "summary": "测试用例,用来显示一个简单的 Vue3 和 Vite 打包出来的静态网页."
   }
