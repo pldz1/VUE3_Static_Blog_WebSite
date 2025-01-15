@@ -1,11 +1,11 @@
 import axios from "axios";
 import { decryptJson } from "../utils/decrypt";
 
-const staticAllBlogsDataFile = "./all.blog.json";
+const staticAllBlogsDataFile = "/all.blog.json";
 
-const blogFilePath = "./_blogs";
+const blogFilePath = "/_blogs";
 
-const apiFileData = "./_data";
+const apiFileData = "/_data";
 
 // 获取并解密 all.blog.json 文件
 async function getAllBlogsData() {

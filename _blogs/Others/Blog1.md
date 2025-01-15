@@ -4,7 +4,7 @@ category: Others
 serialNo: 1
 tags: [tag3, tag4]
 date: 2025/1/1
-thumbnail: ./_pics/default_thumbnail.png
+thumbnail: /_pics/default_thumbnail.png
 summary: 无
 ---
 

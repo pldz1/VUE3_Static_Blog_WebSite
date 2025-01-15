@@ -35,7 +35,7 @@ const websiteAbout = {
     websiteAuthorInfo: {
       name: process.env.VUE_APP_WEBSITE_NAME,
       signature: "",
-      avatar: "./avatar.png",
+      avatar: "/avatar.png",
       githubUrl: process.env.VUE_APP_WEBSITE_AUTHOR_GITHUB,
       csdnUrl: process.env.VUE_APP_WEBSITE_AUTHOR_CSDN,
       juejinUrl: process.env.VUE_APP_WEBSITE_AUTHOR_JUEJIN,
