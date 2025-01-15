@@ -45,10 +45,21 @@ const websiteAbout = {
       copyright: "",
       ps: "",
     },
+    codespaceData: {
+      demo1: {
+        url: "",
+        date: "",
+        thumbnail: "",
+        summary: "",
+      },
+    },
   },
   actions: {
     setPrivacyData({ commit }, data) {
       commit("setPrivacyData", data);
+    },
+    setCodeSpaceData({ commit }, data) {
+      commit("setCodeSpaceData", data);
     },
   },
   mutations: {
@@ -57,6 +68,12 @@ const websiteAbout = {
         state.privacyData.icp = data?.icp || "";
         state.privacyData.copyright = data?.copyright || "";
         state.privacyData.ps = data?.ps || "";
+      }
+    },
+
+    setCodeSpaceData(state, data) {
+      if (data) {
+        if (typeof data == "object") state.codespaceData = data;
       }
     },
   },

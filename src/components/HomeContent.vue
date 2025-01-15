@@ -6,12 +6,12 @@
     <!-- Code Space Playground 内容 -->
     <div class="code-space-container">
       <div class="home-card-list">
-        <HomeCard
+        <PlaygroundCard
           v-for="(article, index) in codePlaygroundList"
           :key="article.id"
           :article="article"
           :reverse="index % 2 == 1"
-        ></HomeCard>
+        ></PlaygroundCard>
       </div>
     </div>
     <div class="container-divider">
@@ -34,6 +34,7 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useStore } from "vuex";
+import PlaygroundCard from "./PlaygroundCard.vue";
 import HomeCard from "./HomeCard.vue";
 
 const store = useStore();
@@ -42,14 +43,13 @@ const store = useStore();
 const categories = computed(() => store.state.blogsAbout.categories);
 
 // 当没有内容时的默认提示
-const codePlaygroundList = ref([
-  {
-    url: `/`,
-    thumbnail: "./_pics/default_thumbnail.png",
-
-    label: "暂无,敬请期待！",
-  },
-]);
+const codePlaygroundList = computed(() =>
+  Object.entries(store.state.websiteAbout.codespaceData).map(([id, value]) => ({
+    id,
+    label: id,
+    ...value,
+  }))
+);
 
 // 存储分类列表
 const blogsCategroyList = ref([]);

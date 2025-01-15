@@ -53,27 +53,27 @@ async function getBlogMdData(id) {
   }
 }
 
-// 获取并解密 _data/privacy.json 文件
-async function getPrivacyData() {
+// 获取并解密 _data/xxx.json 文件
+async function getAPIData(name) {
   try {
     // 1. 使用 axios 发起 GET 请求获取文件
-    const response = await axios.get(`${apiFileData}/privacy.json`);
+    const response = await axios.get(`${apiFileData}/${name}`);
     const encryptedData = response.data;
 
     // 2. 使用 decryptJson 解密得到 全部的 privacy.json 变量
     const allData = decryptJson(encryptedData);
 
     if (!allData) {
-      console.error("解密失败，无法获取 privacy 数据");
+      console.error("解密失败，无法获取 API 文件数据");
       return;
     }
 
     // 3. 返回解密后的 allBlogs 数据
     return allData;
   } catch (error) {
-    console.error("获取或解密 privacy 文件失败:", error);
+    console.error("获取或解密 API 文件失败:", error);
     return null;
   }
 }
 
-export { getAllBlogsData, getBlogMdData, getPrivacyData };
+export { getAllBlogsData, getBlogMdData, getAPIData };

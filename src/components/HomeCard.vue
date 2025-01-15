@@ -49,8 +49,8 @@ const props = defineProps({
 });
 
 // 响应式类名
-let cardClass = reactive(["home-card"]);
-let thumbailLinkClass = reactive(["post-article-thumbail-link"]);
+const cardClass = reactive(["home-card"]);
+const thumbailLinkClass = reactive(["post-article-thumbail-link"]);
 
 if (props.reverse) {
   cardClass.push("home-card-reversed");
